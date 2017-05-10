@@ -1,9 +1,8 @@
 # Computer Science Email Archive Development Documentation
 **Table of Contents**
 
-[TOCM]
 
-[TOC]
+
 ## Status
 
 Hi! We designed an email archive which collected emails on the CSC mailing list. 
@@ -56,8 +55,8 @@ The message model has several fields- `id`, `author`, `subject`, `content`,
 fields under `Schema.rb`. Attachments are currently not supported.
 
 Messages can be altered or deleted by Admins, or users with the correct
-permissions. This may be useful for dealing with tags that have been misspelled 
-(“SC Table” instead of “CS Table”, for example).
+permissions. This may be useful for dealing with tags that have been mislabled 
+(“CS Table” instead of “Misc”, for example).
 
 
 ## Gmail Server and Retrieval
@@ -71,7 +70,7 @@ timing of the retrieval (it's set to ‘1m’ meaning every minute but you could
 change it to ‘1h’ or ‘1s’ for every 1 hour or every 1 second respectively).
 
 Emails are only popped if they come from an authorized source, and emails 
-without grinnell.edu domains are automatically rejected (see `User_mailer.rb`
+without grinnell.edu domains are automatically rejected (see `user_mailer.rb`
 for mail retrieval). There were some difficulties maintaining the integrity of 
 the original text, and messages were added to the database with some characters
 like ‘ changed to other things. If you’re confused by regular expressions 
@@ -81,10 +80,11 @@ encoding. We are not sure how to fix it for every case.
 
 ## Tagging
 
-Tags are added to the messages in the User_mailer.rb using the addTag method.
+Tags are added to the messages in the `user_mailer.rb` using the addTag method.
 There are only a discrete number of tags that can be used. You may add or delete
 tags as you wish. Tags must be added in the subject line of the email in
 brackets likes: [Job]. Multiple tags can be added like: [Job][Internship].
+
 
 Tagging is handled with a gem called `acts_as_taggable_on`. Tags are not
 actually message fields, but are associated with message objects. Tags can 
@@ -100,24 +100,24 @@ Internship, enter` URL /messages?tag=CS Table`, Internship. At the moment, there
 is no way for users to enter several tags beyond typing them in manually. Tags
 can be supplemented with searches, but in the same way- only by manually
 entering the URL themselves. This seems like an obvious place to improve
-on the existing archive. messages_controller and application_controller
+on the existing archive. `messages_controller` and `application_controller`
 may be relevant. 
 
 ## Search
 
 We use the `Ransack` gem, which allows us to search the following message
-fields- subject, content, author, and created_at. The ransack search code
+fields- `subject`, `content`, `author`, and `created_at`. The ransack search code
 is located in `home.html.erb` and `search.html.erb `both in static_pages
-in the views. For cucumber testing purposes, the f.label and f.search_field
-names must match; however, adding a string after f.label will change the name
+in the views. For cucumber testing purposes, the `f.label` and `f.search_field`
+names must match; however, adding a string after `f.label` will change the name
 of the search field on the web page.
 
-The f.search_field must be followed by names of fields within the model being
-searched (i.e. ‘subject’ or ‘content’), followed by how the field should be
-searched. _cont represents “contains,” so whatever is entered in the search
+The `f.search_field` must be followed by names of fields within the model being
+searched (e.g. `subject` or `content`), followed by how the field should be
+searched. `_cont` represents “contains,” so whatever is entered in the search
 bar checks the database to see if that field contains anything that matches
 that string exactly. For example, passing “break” to the field that calls
-subject_cont will check to see if any email subjects contain the word “break.”
+`subject_cont` will check to see if any email subjects contain the word “break.”
 Other searching suffixes are provided on the Ransack wiki.
 
 ## Layout and Other Details
@@ -147,7 +147,7 @@ Stylesheets are generally found under` /app/assets/stylesheets/messages.css`.
 The .scss version is nearly identical but does not seem to have any effect as
 of now. 
 
-##Testing
+## Testing
 
 We strongly recommend that you run tests before editing anything, so you can 
 make sure that your edits are not interfering with basic functionality. 
