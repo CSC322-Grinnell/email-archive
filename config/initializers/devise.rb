@@ -247,7 +247,7 @@ Devise.setup do |config|
   
   # NOTE: Heroku issues get request for delete so change to :get when pushing
   # to heroku
-  config.sign_out_via = :get
+  config.sign_out_via = :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
