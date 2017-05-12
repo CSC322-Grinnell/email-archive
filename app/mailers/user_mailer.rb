@@ -24,7 +24,8 @@ class UserMailer < ApplicationMailer
     if !allMail.empty? #Check to see if no new mail
       allMail.each do |mail|
 #This is a method to check to see if author is from grinnell domain
-        if mail.from[0].include? ("@grinnell.edu")
+#        if mail.from[0].downcase.include? ("@grinnell.edu")
+        if mail.subject.downcase.include? ("csstudent")
           message = Message.new
           message.id = id
           #Grab subject that doesn't include csstudent and other tags
