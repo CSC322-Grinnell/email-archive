@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
       allMail.each do |mail|
 #This is a method to check to see if author is from grinnell domain
 #        if mail.from[0].downcase.include? ("@grinnell.edu")
-        if mail.subject.downcase.include? ("csstudent")
+#        if mail.subject.downcase.include? ("csstudent")
           message = Message.new
           message.id = id
           #Grab subject that doesn't include csstudent and other tags
@@ -38,7 +38,7 @@ class UserMailer < ApplicationMailer
           message.updated_at = Time.now.strftime("%Y-%m-%d %H:%M")
           message.save
           id += 1
-        end
+#        end
       end
     end
   end
